@@ -1,6 +1,6 @@
 # Offline EAGLE-3 training
 
-[Русская версия](eagle3.ru.md) | [DraftLab](../README.md)
+[Русская версия](eagle3.ru.md) | [Model Improvement Lab](../README.md)
 
 > [!IMPORTANT]
 > Offline training requires hidden states from the target language model.
@@ -17,7 +17,7 @@ embedding and output head extracted from the same GGUF file.
 
 Use Python 3.12, CUDA 12.9, and one NVIDIA Tesla V100 with 32 GB of VRAM. Select
 the GPU by UUID with `CUDA_VISIBLE_DEVICES` if multiple cards qualify. Run the
-commands from the DraftLab root. `SF` and `LLAMA` below are new checkouts
+commands from the Model Improvement Lab root. `SF` and `LLAMA` below are new checkouts
 dedicated to the Whittle recipe.
 
 ```bash

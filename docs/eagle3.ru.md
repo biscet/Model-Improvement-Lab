@@ -1,6 +1,6 @@
 # Офлайн-обучение EAGLE-3
 
-[English version](eagle3.en.md) | [DraftLab](../README.ru.md)
+[English version](eagle3.en.md) | [Model Improvement Lab](../README.ru.md)
 
 > [!IMPORTANT]
 > Для офлайн-обучения нужны скрытые состояния целевой языковой модели.
@@ -17,7 +17,7 @@ SpecForge обучает однослойный EAGLE-3 draft на этих пр
 
 Нужны Python 3.12, CUDA 12.9 и одна NVIDIA Tesla V100 с 32 ГБ видеопамяти.
 Если подходящих карт несколько, задайте UUID выбранной карты в
-`CUDA_VISIBLE_DEVICES`. Выполняйте команды из корня DraftLab.
+`CUDA_VISIBLE_DEVICES`. Выполняйте команды из корня Model Improvement Lab.
 `SF` и `LLAMA` ниже указывают на новые рабочие копии под рецепт Whittle.
 
 ```bash

@@ -27,3 +27,23 @@ verification/
 *.zip
 *.tar
 *.gz
+
+# Local experiments and publication staging
+.cache/
+.huggingface/
+outputs/
+exports/
+checkpoints/
+logs/
+datasets/
+download-parts/
+*.jsonl
+*.parquet
+*.arrow
+*.wav
+*.mp3
+*.flac
+*.m4a
+*.mp4
+*.bin
+*.ckpt

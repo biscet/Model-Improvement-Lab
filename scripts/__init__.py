@@ -1,1 +1,1 @@
-"""DraftLab application packages; launch commands through coach.py."""
+"""Model Improvement Lab application packages; launch commands through coach.py."""

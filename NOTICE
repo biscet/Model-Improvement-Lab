@@ -1,4 +1,4 @@
-DraftLab v2.0.1
+Model Improvement Lab v3.0.0
 
 The orchestration, training utilities and capture tools in this package are
 provided under Apache License 2.0. No target weights or draft weights are included.
@@ -24,3 +24,8 @@ are not bundled. Follow the source notices and terms of each downloaded dataset.
 
 No private training records, checkpoints, prompts, server configuration,
 credentials or measured results are distributed with this package.
+
+Downloaded companion checkpoints retain their upstream licenses. Qwen3.5,
+Qwen3-ASR and CLAP recipes reference Apache-2.0 models; Music Flamingo uses
+NVIDIA OneWay Noncommercial terms, restricted to academic, non-commercial use.
+No companion model weights are distributed in this source repository.

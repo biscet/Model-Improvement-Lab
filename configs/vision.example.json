@@ -1,0 +1,20 @@
+{
+  "task": "vision",
+  "model": "Qwen/Qwen3.5-4B",
+  "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+  "model_dir": "../models/vision",
+  "dataset": "../data/vision.jsonl",
+  "run_dir": "../runs/vision",
+  "device": "cuda:0",
+  "dtype": "float16",
+  "max_seconds": 10800,
+  "max_steps": 100000,
+  "batch_size": 1,
+  "gradient_accumulation_steps": 4,
+  "learning_rate": 2e-05,
+  "lora_rank": 8,
+  "publisher": "biscet",
+  "publish_name": "Whittle-Vision-Qwen3.5-4B",
+  "max_tokens": 4096,
+  "max_new_tokens": 256
+}

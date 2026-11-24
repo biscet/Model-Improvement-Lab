@@ -1,4 +1,4 @@
-# Set up and use DraftLab 2.0.1
+# Set up and use Model Improvement Lab 3.0.0
 
 [Русская версия](guide.ru.md) | [Project overview](../README.md)
 
@@ -36,8 +36,8 @@ capture, draft model, and training recipe.
 From the repository root:
 
 ```bash
-python3 coach.py demo --run-dir ../draftlab-demo
-python3 coach.py status --run-dir ../draftlab-demo
+python3 coach.py demo --run-dir ../model-improvement-lab-demo
+python3 coach.py status --run-dir ../model-improvement-lab-demo
 python3 -m unittest discover -s tests -v
 python3 coach.py privacy-check
 ```
@@ -263,10 +263,10 @@ Linux systemd user-service launch:
 
 ```bash
 python coach.py launch --config configs/training.local.json --start-authorized
-journalctl --user -u draftlab.service -f
+journalctl --user -u model-improvement-lab.service -f
 ```
 
-The commands use the default unit `draftlab.service`. For a deployment with
+The commands use the default unit `model-improvement-lab.service`. For a deployment with
 a custom unit, set `unit_name` in the configuration and use that name when
 viewing logs or stopping training.
 
@@ -278,7 +278,7 @@ machine must already allow that user's systemd manager to remain active.
 
 ```bash
 python coach.py status --config configs/training.local.json
-systemctl --user stop draftlab.service
+systemctl --user stop model-improvement-lab.service
 ```
 
 Ctrl-C stops a foreground run. The controller retains the last committed

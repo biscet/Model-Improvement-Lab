@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the selected DraftLab command without importing the ML backend eagerly."""
+"""Run the selected Model Improvement Lab command without importing the ML backend eagerly."""
 
 import argparse
 import importlib
@@ -10,7 +10,7 @@ from scripts.coach_core.constants.commands import COMMANDS
 
 def main():
     parser = argparse.ArgumentParser(
-        description="DraftLab trains draft models for speculative decoding on local language models.",
+        description="Model Improvement Lab runs, fine-tunes and packages vision, speech, music and draft models.",
     )
     parser.add_argument("command", choices=COMMANDS)
     parser.add_argument("arguments", nargs=argparse.REMAINDER, help=argparse.SUPPRESS)

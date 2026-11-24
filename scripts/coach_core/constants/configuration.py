@@ -4,8 +4,8 @@ from scripts.coach_core.constants.paths import PROJECT_ROOT
 from scripts.coach_core.constants.recipe import UNIFORM_OBJECTIVE
 from scripts.coach_core.types import Config
 
-DEFAULT_MODEL_NAME = "DraftLab-candidate"
-DEFAULT_UNIT_NAME = "draftlab"
+DEFAULT_MODEL_NAME = "ModelImprovementLab-candidate"
+DEFAULT_UNIT_NAME = "model-improvement-lab"
 
 DEFAULT_CONFIG: Config = {
     "base_dir": str(PROJECT_ROOT),

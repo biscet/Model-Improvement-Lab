@@ -26,7 +26,7 @@
   "learning_rate": 2.5e-06,
   "checkpoint_bytes_estimate": 7500000000,
   "output_name": "draft-candidate-F16.gguf",
-  "model_name": "DraftLab-candidate",
+  "model_name": "ModelImprovementLab-candidate",
   "production_service": null,
   "production_scope": "user",
   "production_url": "http://127.0.0.1:1234",

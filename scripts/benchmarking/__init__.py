@@ -1,1 +1,1 @@
-"""DraftLab benchmarking."""
+"""Model Improvement Lab benchmarking."""

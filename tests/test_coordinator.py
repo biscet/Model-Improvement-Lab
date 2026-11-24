@@ -44,7 +44,7 @@ class CoordinatorTests(unittest.TestCase):
                 "batch_size": 4,
                 "training_context": 384,
                 "output_name": "draft-candidate-F16.gguf",
-                "model_name": "DraftLab-candidate",
+                "model_name": "ModelImprovementLab-candidate",
             }
             if limit is not None:
                 cfg["max_epochs"] = limit

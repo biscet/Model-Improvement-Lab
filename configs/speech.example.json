@@ -1,0 +1,20 @@
+{
+  "task": "speech",
+  "model": "Qwen/Qwen3-ASR-0.6B-hf",
+  "revision": "7f1569a48a89f3e3f4dc3a5c9d28bddd903bc76c",
+  "model_dir": "../models/speech",
+  "dataset": "../data/speech.jsonl",
+  "run_dir": "../runs/speech",
+  "device": "cuda:0",
+  "dtype": "float16",
+  "max_seconds": 10800,
+  "max_steps": 100000,
+  "batch_size": 1,
+  "gradient_accumulation_steps": 4,
+  "learning_rate": 2e-05,
+  "lora_rank": 8,
+  "publisher": "biscet",
+  "publish_name": "Whittle-ASR-Qwen3-0.6B",
+  "max_tokens": 4096,
+  "max_new_tokens": 256
+}

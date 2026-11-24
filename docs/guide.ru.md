@@ -1,4 +1,4 @@
-# Установка и запуск DraftLab 2.0.1
+# Установка и запуск Model Improvement Lab 3.0.0
 
 [English version](guide.en.md) | [Описание проекта](../README.ru.md)
 
@@ -36,8 +36,8 @@
 Из корня проекта:
 
 ```bash
-python3 coach.py demo --run-dir ../draftlab-demo
-python3 coach.py status --run-dir ../draftlab-demo
+python3 coach.py demo --run-dir ../model-improvement-lab-demo
+python3 coach.py status --run-dir ../model-improvement-lab-demo
 python3 -m unittest discover -s tests -v
 python3 coach.py privacy-check
 ```
@@ -264,10 +264,10 @@ python coach.py run --config configs/training.local.json --start-authorized
 
 ```bash
 python coach.py launch --config configs/training.local.json --start-authorized
-journalctl --user -u draftlab.service -f
+journalctl --user -u model-improvement-lab.service -f
 ```
 
-В командах используется имя по умолчанию `draftlab.service`. Для своего
+В командах используется имя по умолчанию `model-improvement-lab.service`. Для своего
 сервиса задайте `unit_name` в конфигурации и указывайте это имя при просмотре
 лога и остановке обучения.
 
@@ -279,7 +279,7 @@ journalctl --user -u draftlab.service -f
 
 ```bash
 python coach.py status --config configs/training.local.json
-systemctl --user stop draftlab.service
+systemctl --user stop model-improvement-lab.service
 ```
 
 Для foreground используется Ctrl-C. Сохраняется последний принятый checkpoint.

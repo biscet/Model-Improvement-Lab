@@ -1,1 +1,1 @@
-"""DraftLab preflight checks."""
+"""Model Improvement Lab preflight checks."""

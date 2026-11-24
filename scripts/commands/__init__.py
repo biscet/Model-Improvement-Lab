@@ -1,1 +1,1 @@
-"""DraftLab commands."""
+"""Model Improvement Lab commands."""

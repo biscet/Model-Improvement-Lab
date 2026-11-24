@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.0.0
+
+- Renamed the project to Model Improvement Lab and the repository to ModelImprovementLab.
+- Updated English and Russian documentation, CLI branding, example names and service defaults.
+- Added pretrained inference, dataset validation and bounded fine-tuning for vision, speech, music descriptions and audio/text embeddings.
+- Added checkpoint continuation and Hugging Face package staging with source revisions, licenses and provenance.
+- Expanded publication exclusions for local configurations, datasets, media, logs and model artifacts.
+
 ## 2.0.1
 
 - Renamed the project to DraftLab and updated its CLI and default names.

@@ -1,0 +1,20 @@
+{
+  "task": "audio",
+  "model": "laion/larger_clap_music_and_speech",
+  "revision": "195c3a3e68faebb3e2088b9a79e79b43ddbda76b",
+  "model_dir": "../models/audio",
+  "dataset": "../data/audio.jsonl",
+  "run_dir": "../runs/audio",
+  "device": "cuda:0",
+  "dtype": "float32",
+  "max_seconds": 10800,
+  "max_steps": 100000,
+  "batch_size": 2,
+  "gradient_accumulation_steps": 4,
+  "learning_rate": 2e-05,
+  "lora_rank": 8,
+  "publisher": "biscet",
+  "publish_name": "Whittle-Audio-CLAP",
+  "max_tokens": 4096,
+  "max_new_tokens": 256
+}

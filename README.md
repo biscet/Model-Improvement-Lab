@@ -1,14 +1,15 @@
-# DraftLab
+# Model Improvement Lab
 
-Version 2.0.1. [Russian instructions](README.ru.md).
+Version 3.0.0. [Russian instructions](README.ru.md).
 
 > [!NOTE]
 > **Experimental community release.** This release is intended for research
-> and hands-on experiments with draft-model training and speculative decoding.
+> and hands-on experiments with model fine-tuning and speculative decoding.
 
-DraftLab is a research toolkit for training draft models and evaluating
-speculative decoding on local language models. It includes DFlash2 training
-with D-PACE, offline EAGLE-3 training, and GGUF feature capture.
+Model Improvement Lab is a local research toolkit for running, fine-tuning and
+packaging vision, speech, music and draft models. It includes pretrained-model
+inference, bounded fine-tuning and Hugging Face package preparation, alongside
+DFlash2 with D-PACE, offline EAGLE-3 and GGUF feature capture.
 
 GPU training requires a compatible model, capture runtime, and recipe. The
 bundled recipes run on Linux with CUDA. The offline demo, status command and
@@ -16,6 +17,8 @@ most tests also work on macOS.
 
 ## What is included
 
+- Vision, speech transcription, free-form music descriptions and audio/text embeddings.
+- Multimodal fine-tuning with resume and provenance-aware Hugging Face packaging.
 - Capture and token-count tools for a compatible llama.cpp fork.
 - A full draft trainer with checkpoint, optimizer, scaler and RNG recovery.
 - Uniform and D-PACE training objectives for DFlash2.
@@ -33,8 +36,8 @@ The browser dashboard is not implemented in this version.
 Python 3.10 or newer is enough. No packages or API key are needed.
 
 ```bash
-python3 coach.py demo --run-dir ../draftlab-demo
-python3 coach.py status --run-dir ../draftlab-demo
+python3 coach.py demo --run-dir ../model-improvement-lab-demo
+python3 coach.py status --run-dir ../model-improvement-lab-demo
 python3 -m unittest discover -s tests -v
 python3 coach.py privacy-check
 ```
@@ -75,6 +78,15 @@ recipe on a V100 with SpecForge and llama.cpp.
 ML-Docs covers the D-PACE experiment and EAGLE-3 feature layout.
 [ML-Docs](https://github.com/biscet/ML-Docs)
 
+## Vision, speech and audio experiments
+
+`python3 coach.py multimodal --help` provides download, dataset validation,
+inference, bounded fine-tuning, resume and Hugging Face package staging.
+The initial recipes cover Qwen3.5-4B vision LoRA, Qwen3-ASR-0.6B speech LoRA,
+Music Flamingo music-caption LoRA, and CLAP audio/text projection training.
+See [the multimodal guide](docs/multimodal.md)
+for formats and commands.
+
 ## Public dataset examples
 
 - [DFlash DeepSeek TraceMix](https://huggingface.co/datasets/biscet/DFlash-DeepSeek-TraceMix).
@@ -106,7 +118,7 @@ response quality. The candidate is not installed into an inference service.
 The architecture is documented in the
 [Russian architecture guide](docs/architecture.ru.md).
 
-`main` contains v2.0.1. The `v2.0.0` and `v1.0.0` branches preserve earlier releases.
+`main` contains v3.0.0. The `v2.0.1`, `v2.0.0` and `v1.0.0` branches preserve earlier releases.
 See the [changelog](CHANGELOG.md) and [release steps](docs/releases.md).
 
 Original utilities use Apache-2.0. The upstream DFlash model implementation uses
