@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Count successful optimizer updates separately from AMP-skipped steps, and reject candidates with no updates or nonfinite parameters.
+- Use a conservative initial FP16 loss scale and document GPU selection by UUID.
+
 ## 3.0.0
 
 - Renamed the project to Model Improvement Lab and the repository to ModelImprovementLab.

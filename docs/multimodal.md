@@ -26,7 +26,9 @@ python coach.py multimodal status --config configs/vision.local.json
 ```
 
 Select a training GPU with `CUDA_VISIBLE_DEVICES` before launching Python and
-set the recipe's device to `cuda:0`. FP16 supports the V100. CLAP uses FP32.
+set the recipe's device to `cuda:0`. Prefer the device UUID reported by
+`nvidia-smi -L`; numeric CUDA ordinals can differ from the displayed GPU order.
+FP16 supports the V100. CLAP uses FP32.
 Launch experiments sequentially when sharing GPU memory.
 
 Each JSONL line is one example. Media paths resolve relative to the JSONL file.
@@ -69,7 +71,11 @@ after the last complete checkpoint. A file lock prevents concurrent writers.
 
 For a minimal installation check, use `max_steps=1`,
 `gradient_accumulation_steps=1`, `save_steps=1` and a separate verification run.
-This verifies an optimizer update and checkpoint writing. An inference call with
+Training reports successful and skipped optimizer updates separately. A run
+with no successful update, or nonfinite trained parameters, fails without
+exporting a candidate. FP16 starts with a conservative loss scale; resumed runs
+restore their saved scaler state. This checks an optimizer update and checkpoint
+writing. An inference call with
 the resulting candidate checks reloading. Keep verification candidates separate
 from models intended for release.
 

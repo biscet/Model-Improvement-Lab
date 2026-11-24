@@ -58,14 +58,23 @@ def train_locked(cfg, run, resume):
     started = time.monotonic()
 
     class BudgetCallback(TrainerCallback):
+        optimizer_updates = 0
+        skipped_updates = 0
+
         def write_state(self, state, status):
             atomic_json(state_path, {
                 'status': status, 'step': state.global_step,
+                'optimizer_updates_this_invocation': self.optimizer_updates,
+                'skipped_updates_this_invocation': self.skipped_updates,
                 'elapsed_seconds': elapsed_before + time.monotonic() - started,
                 'max_seconds': cfg['max_seconds'],
             })
 
         def on_step_end(self, args, state, control, **kwargs):
+            if trainer.accelerator.optimizer_step_was_skipped:
+                self.skipped_updates += 1
+            else:
+                self.optimizer_updates += 1
             self.write_state(state, 'training')
             if elapsed_before + time.monotonic() - started >= cfg['max_seconds']:
                 control.should_training_stop = True
@@ -99,8 +108,17 @@ def train_locked(cfg, run, resume):
     trainer = MultimodalTrainer(model=model, args=args, train_dataset=rows,
                                data_collator=Collator(cfg, processor), callbacks=[callback])
     trainer.model_accepts_loss_kwargs = False
+    if trainer.accelerator.scaler is not None:
+        # Large initial AMP scales can overflow on the first multimodal batch.
+        # A resumed checkpoint restores its own scaler state during train().
+        scaler = trainer.accelerator.scaler
+        scaler.load_state_dict({**scaler.state_dict(), 'scale': 128.0})
     try:
         trainer.train(resume_from_checkpoint=checkpoint)
+        if callback.optimizer_updates == 0:
+            raise RuntimeError('No optimizer update completed; AMP skipped every step')
+        if any(not torch.isfinite(p).all().item() for p in model.parameters() if p.requires_grad):
+            raise RuntimeError('Nonfinite trained parameters; candidate was not exported')
         # Trainer saves the last step, including optimizer and RNG, at normal completion.
         destination = run / 'candidate'
         trainer.save_model(str(destination))
@@ -108,6 +126,8 @@ def train_locked(cfg, run, resume):
         callback.write_state(trainer.state, 'completed')
         atomic_json(destination / 'training_summary.json', {
             **identity, 'steps': trainer.state.global_step,
+            'optimizer_updates_this_invocation': callback.optimizer_updates,
+            'skipped_updates_this_invocation': callback.skipped_updates,
             'elapsed_seconds': elapsed_before + time.monotonic() - started,
             'method': 'contrastive-projections' if cfg['task'] == 'audio' else 'lora',
         })
