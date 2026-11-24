@@ -69,6 +69,15 @@ the pinned model, recipe and hashes of both JSONL records and media. Save
 frequency is configurable with `save_steps`; abrupt failures can lose work
 after the last complete checkpoint. A file lock prevents concurrent writers.
 
+Optionally set `validation_dataset` to a separate JSONL file with the same
+record format. Training rejects overlapping media hashes and records the
+validation fingerprint for resume. Set matching `eval_steps` and `save_steps`
+to evaluate loss and save checkpoints periodically. The exported candidate then
+uses the checkpoint with the lowest validation loss; this is checkpoint
+selection, not a comparison with the upstream model. `warmup_steps` optionally
+ramps the learning rate before holding it constant. These evaluations count
+toward the cumulative wall-clock budget.
+
 For a minimal installation check, use `max_steps=1`,
 `gradient_accumulation_steps=1`, `save_steps=1` and a separate verification run.
 Training reports successful and skipped optimizer updates separately. A run

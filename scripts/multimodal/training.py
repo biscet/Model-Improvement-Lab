@@ -27,10 +27,18 @@ def train_locked(cfg, run, resume):
     from transformers.trainer_utils import get_last_checkpoint
 
     rows = read_dataset(cfg)
+    validation_rows = read_dataset({**cfg, 'dataset': cfg['validation_dataset']}) if cfg.get('validation_dataset') else None
     identity = {'task': cfg['task'], 'model': cfg['model'], 'revision': cfg['revision'],
                 'dataset': dataset_identity(cfg, rows),
                 'recipe': {k: cfg[k] for k in ('batch_size', 'gradient_accumulation_steps',
                                              'lora_rank', 'learning_rate', 'seed', 'dtype')}}
+    if validation_rows is not None:
+        validation_identity = dataset_identity({**cfg, 'dataset': cfg['validation_dataset']}, validation_rows)
+        if set(identity['dataset']['media_sha256']) & set(validation_identity['media_sha256']):
+            raise ValueError('Training and validation media overlap')
+        identity['validation_dataset'] = validation_identity
+    if cfg.get('warmup_steps'):
+        identity['recipe']['warmup_steps'] = cfg['warmup_steps']
     manifest_path = run / 'experiment.json'
     state_path = run / 'run_state.json'
     checkpoint = None
@@ -94,8 +102,16 @@ def train_locked(cfg, run, resume):
         output_dir=str(run), max_steps=cfg['max_steps'],
         per_device_train_batch_size=cfg['batch_size'],
         gradient_accumulation_steps=cfg['gradient_accumulation_steps'],
-        learning_rate=cfg['learning_rate'], lr_scheduler_type='constant',
+        learning_rate=cfg['learning_rate'],
+        lr_scheduler_type='constant_with_warmup' if cfg.get('warmup_steps') else 'constant',
+        warmup_steps=cfg.get('warmup_steps', 0),
         save_strategy='steps', save_steps=cfg.get('save_steps', 25), save_total_limit=2,
+        eval_strategy='steps' if validation_rows is not None else 'no',
+        eval_steps=cfg.get('eval_steps', cfg.get('save_steps', 25)),
+        per_device_eval_batch_size=1, prediction_loss_only=True,
+        load_best_model_at_end=validation_rows is not None,
+        metric_for_best_model='eval_loss' if validation_rows is not None else None,
+        greater_is_better=False,
         logging_steps=1, report_to=[], remove_unused_columns=False,
         dataloader_drop_last=cfg['task'] == 'audio', dataloader_pin_memory=False,
         fp16=cfg['dtype'] == 'float16', bf16=cfg['dtype'] == 'bfloat16',
@@ -105,7 +121,7 @@ def train_locked(cfg, run, resume):
         seed=cfg['seed'], data_seed=cfg['seed'], optim='adamw_torch',
     )
     callback = BudgetCallback()
-    trainer = MultimodalTrainer(model=model, args=args, train_dataset=rows,
+    trainer = MultimodalTrainer(model=model, args=args, train_dataset=rows, eval_dataset=validation_rows,
                                data_collator=Collator(cfg, processor), callbacks=[callback])
     trainer.model_accepts_loss_kwargs = False
     if trainer.accelerator.scaler is not None:
@@ -128,6 +144,8 @@ def train_locked(cfg, run, resume):
             **identity, 'steps': trainer.state.global_step,
             'optimizer_updates_this_invocation': callback.optimizer_updates,
             'skipped_updates_this_invocation': callback.skipped_updates,
+            'selected_checkpoint': Path(trainer.state.best_model_checkpoint).name if trainer.state.best_model_checkpoint else None,
+            'best_validation_loss': trainer.state.best_metric,
             'elapsed_seconds': elapsed_before + time.monotonic() - started,
             'method': 'contrastive-projections' if cfg['task'] == 'audio' else 'lora',
         })

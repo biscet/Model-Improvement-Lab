@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added optional disjoint validation data, validation-loss checkpoint selection and learning-rate warmup for multimodal training.
 - Count successful optimizer updates separately from AMP-skipped steps, and reject candidates with no updates or nonfinite parameters.
 - Use a conservative initial FP16 loss scale and document GPU selection by UUID.
 

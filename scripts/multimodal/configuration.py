@@ -11,7 +11,7 @@ def load_config(path):
     cfg = json.loads(path.read_text())
     if cfg['task'] not in ('vision', 'speech', 'audio', 'music'):
         raise ValueError('task must be vision, speech, audio or music')
-    for key in ('model_dir', 'run_dir', 'dataset'):
+    for key in ('model_dir', 'run_dir', 'dataset', 'validation_dataset'):
         if cfg.get(key):
             cfg[key] = str((path.parent / Path(cfg[key]).expanduser()).resolve())
     if len(cfg['revision']) != 40:

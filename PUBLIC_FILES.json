@@ -13,8 +13,8 @@
       "sha256": "9735d1e2bc814d0c60206c835fdec65edcb50d932d9b1bf4ed199b6cf58ad923"
     },
     "CHANGELOG.md": {
-      "bytes": 2526,
-      "sha256": "ac61c2ab947a926385ef4dd1b997053ae8966c808580180bee7431b8787067ff"
+      "bytes": 2656,
+      "sha256": "ce1c0c32fdb6ddf7ff75999aff174c5b1954465eb17f5ddbdf00910ff6dca02d"
     },
     "LICENSE": {
       "bytes": 11358,
@@ -133,8 +133,8 @@
       "sha256": "a2f7010f4e8026ab114900da7c245a4f2f748da287fc395aaa0d7f5be001d2ea"
     },
     "docs/multimodal.md": {
-      "bytes": 6226,
-      "sha256": "21bf1a7a59f52b5603a48a26721fedb28b61d077a626c32c24c31e3856a273a8"
+      "bytes": 6801,
+      "sha256": "17a20035cb3a154b574ae7e25439f0ef908881569fd96a434d5db4c1eafa32c1"
     },
     "docs/releases.md": {
       "bytes": 2405,
@@ -381,16 +381,16 @@
       "sha256": "86076968e84665953690635edce5142498a5750a8e99ca7e8eb9f6cd01a8d8b3"
     },
     "scripts/multimodal/configuration.py": {
-      "bytes": 3935,
-      "sha256": "6f96e8bf4c96fa47876c6d0d5929267677ab72742f97d0d61e704569bcb565e6"
+      "bytes": 3957,
+      "sha256": "840dec303808cd6cdefcbf689386b41c53b47a543a56edd04b8c04d8d16e3749"
     },
     "scripts/multimodal/models.py": {
       "bytes": 7763,
       "sha256": "2da3ddd44004c9297b797a38c71af17839ff338cd66316d21dbfc4dd84e73330"
     },
     "scripts/multimodal/training.py": {
-      "bytes": 6576,
-      "sha256": "3c2c7f05d64a9cc5aad743513137056c3e66927ec5ef6ce21507fcd5220d890e"
+      "bytes": 7892,
+      "sha256": "016b1daf07afbf3ca96a1e847dd71c7ab8584fba76da12494aea976c55c32f70"
     },
     "scripts/orchestration/__init__.py": {
       "bytes": 43,
